@@ -1,0 +1,32 @@
+python-dotenv
+groq
+elevenlabs
+appopener
+pywhatkit
+bs4
+pillow
+rich
+requests
+keyboard
+cohere
+googlesearch-python
+selenium
+mtranslate
+pygame
+edge-tts
+# PyQt5  # Commented out as we're using PyQt6
+PyQt6
+webdriver-manager
+sympy
+numpy
+google-generativeai
+PyAudio
+# wave  # Part of Python standard library
+# Additional dependencies for speaker verification and live STT
+speechbrain
+# webrtcvad  # Cannot be installed due to missing build tools, using fallback implementation
+torch
+torchaudio
+scikit-learn
+# Optional dependency for local STT
+faster-whisper
