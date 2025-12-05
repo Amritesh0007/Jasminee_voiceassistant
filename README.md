@@ -6,6 +6,28 @@
 
 An advanced AI-powered personal assistant with voice interaction capabilities, featuring real-time search, task automation, mathematical problem solving, and multimodal AI capabilities.
 
+## 🎥 Demo Videos
+
+Check out our voice assistant in action:
+
+<!-- Demo Video 1 -->
+<div align="center">
+  <video src="Frontend/Graphics/DemoVideos/WhatsApp Video 2025-12-05 at 22.24.08.mp4" controls width="300"></video>
+  <p><em>Voice Command Recognition and Response</em></p>
+</div>
+
+<!-- Demo Video 2 -->
+<div align="center">
+  <video src="Frontend/Graphics/DemoVideos/WhatsApp Video 2025-12-05 at 22.24.22.mp4" controls width="300"></video>
+  <p><em>Real-time Task Automation</em></p>
+</div>
+
+<!-- Demo Video 3 -->
+<div align="center">
+  <video src="Frontend/Graphics/DemoVideos/WhatsApp Video 2025-12-05 at 22.24.25.mp4" controls width="300"></video>
+  <p><em>Mathematical Problem Solving</em></p>
+</div>
+
 ## 🚀 Powered by Cutting-Edge AI Technologies
 
 Jasmine AI leverages state-of-the-art technologies to deliver an exceptional voice assistant experience. Our voice agent is powered by Deepgram for speech recognition and MURF AI for premium text-to-speech synthesis, ensuring crystal-clear voice interactions.
@@ -121,6 +143,8 @@ Modern graphical interface:
   - Google Gemini
   - Cohere
   - Groq (optional)
+  - Murf falcon ai
+  - HuggingFace
 
 ### Installation
 
@@ -213,12 +237,14 @@ Create a `.env` file in the project root with your API keys:
 
 ```env
 # Core API Keys
-GEMINI_API_KEY=your_gemini_api_key
-CohereAPIKey=your_cohere_api_key
-GroqAPIKey=your_groq_api_key
+CohereAPIKey = "VO31izShSeOGMvuDFmjUk5UusTG7sErnYUt77KIz"
+GroqAPIKey = "your_groq_api_key_here"
+HuggingFaceAPIKey = "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"
+MurfAPIKey = "ap2_0ecb40b0-b91d-42d8-a528-f9fa28012a55"
+GEMINI_API_KEY = "AIzaSyCA69QvhM8OkY2ttVMcGXmyhmgHQI4ghSM"
 
 # User Preferences
-Username=Your Name
+Username=Amritesh
 Assistantname=Jasmine
 
 # Voice Settings
@@ -234,7 +260,7 @@ Our voice assistant leverages cutting-edge technologies to deliver an exceptiona
 - **Deepgram API**: Enterprise-grade speech-to-text with real-time transcription
 - **PyAudio**: For capturing high-quality audio input
 
-### Text-to-Speech
+### Text-to-Speech: MURF AI and Edge TTS
 - **MURF AI**: Premium AI voices for natural, human-like speech synthesis
 - **Edge TTS**: Microsoft's text-to-speech service as a reliable fallback
 
