@@ -6,6 +6,10 @@
 
 An advanced AI-powered personal assistant with voice interaction capabilities, featuring real-time search, task automation, mathematical problem solving, and multimodal AI capabilities.
 
+## 🚀 Powered by Cutting-Edge AI Technologies
+
+Jasmine AI leverages state-of-the-art technologies to deliver an exceptional voice assistant experience. Our voice agent is powered by Deepgram for speech recognition and MURF AI for premium text-to-speech synthesis, ensuring crystal-clear voice interactions.
+
 ## 🌟 Features
 
 - **Voice Interaction**: Natural language processing with speech-to-text and text-to-speech
@@ -82,16 +86,18 @@ Task execution capabilities:
 ### 5. Voice Processing
 
 #### Speech Recognition (`Backend/SpeechToText.py`)
-Multiple speech recognition options:
-- Web-based speech recognition
-- Gemini-powered audio processing
-- Multi-language support
+Advanced speech recognition powered by Deepgram API:
+- Real-time speech-to-text conversion
+- High accuracy transcription
+- Low latency processing
+- Automatic punctuation
 
 #### Text-to-Speech (`Backend/TextToSpeech.py`)
-Natural voice output:
-- Murf AI premium voices
-- Edge TTS fallback
+Premium voice output with MURF AI implementation:
+- MURF AI premium voices for natural, human-like speech
+- Edge TTS fallback for reliability
 - Audio playback optimization
+- Successfully implemented MURF AI for enhanced voice quality
 
 ### 6. Real-time Search (`Backend/RealtimeSearchEngine.py`)
 Live information retrieval:
@@ -219,6 +225,27 @@ Assistantname=Jasmine
 AssistantVoice=en-US-JennyNeural
 InputLanguage=en
 ```
+
+## ⚡ Technologies Powering Our Voice Agent
+
+Our voice assistant leverages cutting-edge technologies to deliver an exceptional user experience:
+
+### Speech Recognition
+- **Deepgram API**: Enterprise-grade speech-to-text with real-time transcription
+- **PyAudio**: For capturing high-quality audio input
+
+### Text-to-Speech
+- **MURF AI**: Premium AI voices for natural, human-like speech synthesis
+- **Edge TTS**: Microsoft's text-to-speech service as a reliable fallback
+
+### AI & Machine Learning
+- **Google Gemini API**: Advanced conversational AI and multimodal processing
+- **Cohere API**: Intelligent decision-making and query classification
+
+### Voice Authentication (Optional)
+- **SpeechBrain ECAPA-TDNN**: Speaker verification for enhanced security
+
+All these technologies work seamlessly together to provide a robust, responsive, and intelligent voice assistant experience.
 
 ## 🧪 Testing
 
