@@ -1307,11 +1307,11 @@ def GraphicalUserInterface():
             window.setLayout(main_layout)
             window.show()
             
-            # Function to handle Gemini ASR button click
+            
             def start_gemini_asr():
                 print("Starting Gemini ASR...")
                 try:
-                    # Check if PyAudio is available and working
+                    
                     pyaudio_available = False
                     try:
                         import pyaudio
