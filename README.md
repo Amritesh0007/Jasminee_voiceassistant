@@ -121,6 +121,8 @@ Modern graphical interface:
   - Google Gemini
   - Cohere
   - Groq (optional)
+  - Murf falcon ai
+  - HuggingFace
 
 ### Installation
 
@@ -213,12 +215,14 @@ Create a `.env` file in the project root with your API keys:
 
 ```env
 # Core API Keys
-GEMINI_API_KEY=your_gemini_api_key
-CohereAPIKey=your_cohere_api_key
-GroqAPIKey=your_groq_api_key
+CohereAPIKey = "VO31izShSeOGMvuDFmjUk5UusTG7sErnYUt77KIz"
+GroqAPIKey = "your_groq_api_key_here"
+HuggingFaceAPIKey = "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"
+MurfAPIKey = "ap2_0ecb40b0-b91d-42d8-a528-f9fa28012a55"
+GEMINI_API_KEY = "AIzaSyCA69QvhM8OkY2ttVMcGXmyhmgHQI4ghSM"
 
 # User Preferences
-Username=Your Name
+Username=Amritesh
 Assistantname=Jasmine
 
 # Voice Settings
@@ -234,7 +238,7 @@ Our voice assistant leverages cutting-edge technologies to deliver an exceptiona
 - **Deepgram API**: Enterprise-grade speech-to-text with real-time transcription
 - **PyAudio**: For capturing high-quality audio input
 
-### Text-to-Speech
+### Text-to-Speech: MURF AI and Edge TTS
 - **MURF AI**: Premium AI voices for natural, human-like speech synthesis
 - **Edge TTS**: Microsoft's text-to-speech service as a reliable fallback
 
