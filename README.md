@@ -7,6 +7,10 @@
 An advanced AI-powered personal assistant with voice interaction capabilities, featuring real-time search, task automation, mathematical problem solving, and multimodal AI capabilities.
 
 ## 🎥 Demo Videos
+DEMO-VIDEO_1 : https://drive.google.com/file/d/1QXKPUhVWPmVVSuhswXJjHzVPFtSOK2T7/view?usp=sharing
+DEMO-VIDEO_2 : https://drive.google.com/file/d/1YQwEwHUaGePqreSIUdg1yBsXgwHAIW-B/view?usp=sharing
+DEMO-VIDEO-3 : https://drive.google.com/file/d/13wtqUwgl1olT1_i_MEOq_dGdy0WPkyV7/view?usp=sharing
+
 
 Check out our voice assistant in action:
 
