@@ -174,6 +174,87 @@ def QueryModifier(Query):
     return new_query.capitalize()
 
 def SpeechRecognition():
+    """
+    Real-time speech recognition using OpenAI Whisper
+    """
+    try:
+        import whisper
+        import pyaudio
+        import wave
+        import tempfile
+        import os
+        import time
+        import threading
+        
+        # Audio parameters
+        FORMAT = pyaudio.paInt16
+        CHANNELS = 1
+        RATE = 16000
+        CHUNK = 1024
+        RECORD_SECONDS = 5  # Record for 5 seconds at a time
+        
+        print("🎤 Initializing OpenAI Whisper...")
+        # Load the model - "base" is a good balance of speed and accuracy
+        model = whisper.load_model("base")
+        print("✅ Whisper model loaded successfully")
+        
+        # Initialize PyAudio
+        audio = pyaudio.PyAudio()
+        
+        # Open stream
+        stream = audio.open(format=FORMAT,
+                          channels=CHANNELS,
+                          rate=RATE,
+                          input=True,
+                          frames_per_buffer=CHUNK)
+        
+        print("🔊 Audio stream opened, listening for your voice command...")
+        
+        # Record audio
+        frames = []
+        for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
+            data = stream.read(CHUNK)
+            frames.append(data)
+        
+        # Stop stream
+        stream.stop_stream()
+        stream.close()
+        audio.terminate()
+        
+        # Save to temporary file
+        with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmp_file:
+            tmp_filename = tmp_file.name
+            
+        # Write the recorded data to the temporary file
+        with wave.open(tmp_filename, 'wb') as wf:
+            wf.setnchannels(CHANNELS)
+            wf.setsampwidth(audio.get_sample_size(FORMAT))
+            wf.setframerate(RATE)
+            wf.writeframes(b''.join(frames))
+        
+        print("🔄 Transcribing with OpenAI Whisper...")
+        # Transcribe with Whisper
+        result = model.transcribe(tmp_filename)
+        recognized_text = result["text"].strip()
+        
+        # Clean up temporary file
+        os.unlink(tmp_filename)
+        
+        if recognized_text:
+            print(f"✅ Recognized: {recognized_text}")
+            # Apply query modifier
+            return QueryModifier(recognized_text)
+        else:
+            print("🔇 No speech recognized")
+            return "No speech recognized. Please try again."
+            
+    except Exception as e:
+        print(f"Error in OpenAI Whisper ASR: {e}")
+        # Fallback to web-based recognition
+        return _web_speech_recognition()
+
+def _web_speech_recognition():
+    """Fallback to original web-based speech recognition"""
     # Check if driver is available
     if driver is None:
         print("Error: ChromeDriver not available. Speech recognition disabled.")
@@ -243,7 +324,7 @@ if __name__ == "__main__":
     while True:
         # You can switch between the two implementations
         print("Choose ASR method:")
-        print("1. Web Speech Recognition (default)")
+        print("1. OpenAI Whisper ASR (default)")
         print("2. Gemini ASR")
         choice = input("Enter choice (1 or 2): ")
         

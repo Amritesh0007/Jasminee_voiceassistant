@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
 """
-Text interface for Jarvis AI Assistant
+Text interface for Jasmine AI Assistant
 """
 
 import sys
 import os
 
 # Add the project root to the Python path
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, project_root)
 
 def text_interface():
     """Simple text interface for the assistant"""
-    print("🤖 Jarvis AI Assistant - Text Interface")
+    print("🤖 Jasmine AI Assistant - Text Interface")
     print("=" * 40)
     print("Type your queries below. Type 'exit' to quit.")
     print("Examples:")
@@ -44,7 +45,7 @@ def text_interface():
             
             # Check for exit command
             if query.lower() in ['exit', 'quit', 'bye']:
-                print("Jarvis: Goodbye! Have a great day!")
+                print("Jasmine: Goodbye! Have a great day!")
                 break
             
             # Skip empty queries
@@ -64,26 +65,24 @@ def text_interface():
                 # Real-time search query
                 print("🌐 Searching the web for real-time information...")
                 answer = RealtimeSearchEngine(query)
-                print(f"Jarvis: {answer}")
+                print(f"Jasmine: {answer}")
             elif G:
                 # General chat query
                 print("💬 Generating response...")
                 answer = ChatBot(query)
-                print(f"Jarvis: {answer}")
+                print(f"Jasmine: {answer}")
             else:
                 # Automation commands
                 print("⚙️  Executing automation commands...")
                 asyncio.run(Automation(decision))
-                print("Jarvis: Command executed!")
+                print("Jasmine: Command executed!")
                 
         except KeyboardInterrupt:
             print("\n\n👋 Goodbye! Have a great day!")
             break
         except Exception as e:
             print(f"❌ Error: {e}")
-            print("Jarvis: I'm sorry, I encountered an error. Please try again.")
+            print("Jasmine: I'm sorry, I encountered an error. Please try again.")
 
 if __name__ == "__main__":
     text_interface()
-
-

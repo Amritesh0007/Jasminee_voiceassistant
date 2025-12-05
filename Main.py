@@ -16,6 +16,14 @@ from Backend.SpeechToText import SpeechRecognition
 from Backend.Chatbot import ChatBot
 from Backend.TextToSpeech import TextToSpeech
 from Backend.GeminiAPI import gemini_api, generate_text, solve_math_problem
+
+
+try:
+    import utils.fix_torchaudio
+    utils.fix_torchaudio.patch_torchaudio()
+except ImportError:
+    print("Warning: Could not apply torchaudio patch")
+
 from dotenv import dotenv_values
 from asyncio import run
 from time import sleep

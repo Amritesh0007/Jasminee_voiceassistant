@@ -99,6 +99,14 @@ def TempDirectoryPath(Filename):
     """Get full path to temp file"""
     return os.path.join(TempDirPath, Filename)
 
+# def ShowTextToScreen(Text):
+#     """Show text on screen by writing to responses file"""
+#     try:
+#         with open(os.path.join(TempDirPath, 'Responses.data'), 'w', encoding='utf-8') as file:
+#             file.write(Text)
+#     except Exception as e:
+#         print(f"Error showing text to screen: {e}")
+
 def ShowTextToScreen(Text):
     """Show text on screen by writing to responses file"""
     try:
@@ -115,8 +123,8 @@ def GraphicalUserInterface():
     # Try to import PyQt6 (better ARM64 support)
     try:
         from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QFrame, QHBoxLayout, QPushButton
-        from PyQt6.QtGui import QFont, QMovie
-        from PyQt6.QtCore import Qt, QTimer, QUrl, pyqtSignal, QEasingCurve, QPropertyAnimation
+        from PyQt6.QtGui import QFont, QMovie, QCursor, QPixmap, QPainter, QPen, QColor
+        from PyQt6.QtCore import Qt, QTimer, QUrl, pyqtSignal, QEasingCurve, QPropertyAnimation, QSize
         
         # Try to import multimedia components with fallback
         try:
@@ -134,6 +142,69 @@ def GraphicalUserInterface():
         
         # Create the application
         app = QApplication([])
+
+        # Custom Futuristic Cursor
+        def set_custom_cursor(app_instance):
+            cursor_pixmap = QPixmap(40, 40)
+            cursor_pixmap.fill(Qt.GlobalColor.transparent)
+            painter = QPainter(cursor_pixmap)
+            painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+            
+            # Draw futuristic crosshair
+            painter.setPen(QPen(QColor("#00ffcc"), 2))
+            painter.drawEllipse(10, 10, 20, 20)
+            painter.drawLine(20, 5, 20, 35)
+            painter.drawLine(5, 20, 35, 20)
+            
+            # Inner glow
+            painter.setPen(QPen(QColor("#ff00ff"), 1))
+            painter.drawEllipse(18, 18, 4, 4)
+            
+            painter.end()
+            cursor = QCursor(cursor_pixmap, 20, 20)
+            app_instance.setOverrideCursor(cursor)
+
+        set_custom_cursor(app)
+
+        # Splash Screen Class
+        class SplashScreen(QWidget):
+            def __init__(self, video_path, main_window):
+                super().__init__()
+                self.main_window = main_window
+                self.setWindowTitle("Jasmine AI Loading...")
+                self.setWindowFlags(Qt.WindowType.FramelessWindowHint | Qt.WindowType.WindowStaysOnTopHint)
+                self.showFullScreen()
+                
+                layout = QVBoxLayout(self)
+                layout.setContentsMargins(0, 0, 0, 0)
+                
+                # Video Widget
+                self.video_widget = QVideoWidget()
+                layout.addWidget(self.video_widget)
+                
+                # Media Player
+                self.player = QMediaPlayer()
+                self.audio = QAudioOutput()
+                self.player.setAudioOutput(self.audio)
+                self.player.setVideoOutput(self.video_widget)
+                
+                if os.path.exists(video_path):
+                    self.player.setSource(QUrl.fromLocalFile(video_path))
+                    self.player.mediaStatusChanged.connect(self.check_status)
+                    self.player.play()
+                else:
+                    # Fallback if video missing
+                    QTimer.singleShot(1000, self.finish)
+
+            def check_status(self, status):
+                if status == QMediaPlayer.MediaStatus.EndOfMedia:
+                    self.finish()
+            
+            def finish(self):
+                self.player.stop()
+                self.close()
+                self.main_window.show()
+
         
         # Create a main window with futuristic styling
         window = QWidget()
@@ -580,14 +651,12 @@ def GraphicalUserInterface():
                 """)
         
         # Create buttons
-        mic_button = FuturisticButton("🎤 TOGGLE MIC")
+        # Create buttons
+        # Removed unused 'Mic' and 'Settings' buttons as requested
         gemini_asr_button = FuturisticButton("🎙️ GEMINI ASR")
-        settings_button = FuturisticButton("⚙️ SETTINGS")
         exit_button = FuturisticButton("❌ EXIT")
         
-        button_layout.addWidget(mic_button)
         button_layout.addWidget(gemini_asr_button)
-        button_layout.addWidget(settings_button)
         button_layout.addWidget(exit_button)
         
         main_layout.addLayout(button_layout)
@@ -694,7 +763,13 @@ def GraphicalUserInterface():
         main_layout.addWidget(system_frame)
         
         window.setLayout(main_layout)
-        window.show()
+        
+        # Initialize and show Splash Screen instead of main window directly
+        if multimedia_available and os.path.exists(GraphicsDirectoryPath("jasmine.mp4")):
+            splash = SplashScreen(GraphicsDirectoryPath("jasmine.mp4"), window)
+            splash.show()
+        else:
+            window.show()
         
         # Function to handle Gemini ASR button click
         def start_gemini_asr():
@@ -1069,60 +1144,6 @@ def GraphicalUserInterface():
             button_layout = QHBoxLayout()
             button_layout.setSpacing(15)
             
-            mic_button = QPushButton("🎤 TOGGLE MIC")
-            mic_button.setStyleSheet("""
-                QPushButton {
-                    background-color: qlineargradient(
-                        x1: 0, y1: 0, x2: 1, y2: 1,
-                        stop: 0 #001f3f,
-                        stop: 1 #0074D9
-                    );
-                    color: #00ffcc;
-                    border: 2px solid #00ffff;
-                    border-radius: 15px;
-                    padding: 12px 20px;
-                    font-size: 16px;
-                    font-weight: bold;
-                    font-family: 'Courier New', monospace;
-                }
-                QPushButton:hover {
-                    background-color: qlineargradient(
-                        x1: 0, y1: 0, x2: 1, y2: 1,
-                        stop: 0 #00ffff,
-                        stop: 1 #0074D9
-                    );
-                    border: 2px solid #ff00ff;
-                    color: #ffffff;
-                }
-            """)
-            
-            settings_button = QPushButton("⚙️ SETTINGS")
-            settings_button.setStyleSheet("""
-                QPushButton {
-                    background-color: qlineargradient(
-                        x1: 0, y1: 0, x2: 1, y2: 1,
-                        stop: 0 #001f3f,
-                        stop: 1 #0074D9
-                    );
-                    color: #00ffcc;
-                    border: 2px solid #00ffff;
-                    border-radius: 15px;
-                    padding: 12px 20px;
-                    font-size: 16px;
-                    font-weight: bold;
-                    font-family: 'Courier New', monospace;
-                }
-                QPushButton:hover {
-                    background-color: qlineargradient(
-                        x1: 0, y1: 0, x2: 1, y2: 1,
-                        stop: 0 #00ffff,
-                        stop: 1 #0074D9
-                    );
-                    border: 2px solid #ff00ff;
-                    color: #ffffff;
-                }
-            """)
-            
             gemini_asr_button = QPushButton("🎙️ GEMINI ASR")
             gemini_asr_button.setStyleSheet("""
                 QPushButton {
@@ -1177,9 +1198,7 @@ def GraphicalUserInterface():
                 }
             """)
             
-            button_layout.addWidget(mic_button)
             button_layout.addWidget(gemini_asr_button)
-            button_layout.addWidget(settings_button)
             button_layout.addWidget(exit_button)
             
             main_layout.addLayout(button_layout)
